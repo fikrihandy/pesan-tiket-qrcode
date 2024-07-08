@@ -13,7 +13,7 @@ class GameController extends Controller
 
     public function index()
     {
-        $games = Game::orderBy('match_time', 'asc')->get();
+        $games = Game::orderBy('match_time', 'desc')->get();
         return view('home', compact('games'));
     }
 
