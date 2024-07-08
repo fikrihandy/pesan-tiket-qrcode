@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Game;
 use App\Models\Ticket;
@@ -11,13 +15,13 @@ class GameController extends Controller
 {
     // Show games & game detail
 
-    public function index()
+    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $games = Game::orderBy('match_time', 'desc')->get();
         return view('home', compact('games'));
     }
 
-    public function show($id)
+    public function show($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $game = Game::findOrFail($id);
         $tickets = Ticket::where('game_id', $id)->get();
@@ -39,12 +43,12 @@ class GameController extends Controller
 
     //Create game & ticket
 
-    public function create()
+    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.add_game_and_ticket');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
 
         $request->validate([
